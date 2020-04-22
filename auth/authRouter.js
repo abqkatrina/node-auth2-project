@@ -5,7 +5,7 @@ const Users = require("../users/userModel.js");
 
 router.post("/register", (req, res) => {
   let user = req.body; 
-  const rounds = process.env.HASH_ROUNDS || 14;
+  const rounds = process.env.HASH_ROUNDS || 12;
   const hash = bcrypt.hashSync(user.password, rounds);
   user.password = hash;
   Users.add(user)
@@ -21,6 +21,7 @@ router.post("/register", (req, res) => {
 router.post("/login", (req, res) => {
   let { username, password } = req.body;
   Users.findBy({ username })
+    .first()
     .then(([user]) => {
       if (user && bcrypt.compareSync(password, user.password)) {
         req.session.loggedIn = true;
