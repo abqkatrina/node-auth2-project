@@ -7,9 +7,7 @@ router.post("/register", (req, res) => {
   let user = req.body; 
   const rounds = process.env.HASH_ROUNDS || 14;
   const hash = bcrypt.hashSync(user.password, rounds);
-
   user.password = hash;
-
   Users.add(user)
     .then(saved => {
       res.status(201).json(saved);
@@ -22,7 +20,6 @@ router.post("/register", (req, res) => {
 
 router.post("/login", (req, res) => {
   let { username, password } = req.body;
-
   Users.findBy({ username })
     .then(([user]) => {
       if (user && bcrypt.compareSync(password, user.password)) {

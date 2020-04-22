@@ -12,12 +12,12 @@ const dbConnection = require("../data/dbConfig.js");
 const server = express();
 
 const sessionConfig = {
-  name: "monster",
-  secret: process.env.SESSION_SECRET || "keep it secret, keep it safe!",
+  name: "configuration",
+  secret: process.env.SESSION_SECRET || "sore wa himitsu desu!",
   resave: false,
   saveUninitialized: process.env.SEND_COOKIES || true,
   cookie: {
-    maxAge: 1000 * 60 * 10, // good for 10 mins in ms
+    maxAge: 1000 * 60 * 10, 
     secure: process.env.USE_SECURE_COOKIES || false, 
     httpOnly: true,
   },
